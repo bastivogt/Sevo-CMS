@@ -1,0 +1,17 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "sass:build": "sass bootstrap/scss:bootstrap/css --no-source-map",
+    "sass:watch": "sass bootstrap/scss:bootstrap/css --no-source-map --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "sass": "^1.83.0"
+  }
+}
