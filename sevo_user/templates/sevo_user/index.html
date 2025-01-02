@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <ul>
+        {% if user.is_authenticated == False %}
+            <li>
+                <a href="{% url 'sevo_user:sign_up' %}">Sign up</a>
+            </li>
+            <li>
+                <a href="{% url 'sevo_user:sign_in' %}">Sign in</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{% url 'sevo_user:password_change' %}">Change password</a>
+            </li>
+            {% comment %} <li>
+                <a href="{% url 'sevo_user:sign_out' %}">Sign out</a>
+            </li> {% endcomment %}
+            <li>
+                <a href="{% url 'sevo_user:update' request.user.id %}">Change userdata</a>
+            </li>
+            <li>
+                <form method="post" action="{% url 'sevo_user:sign_out' %}">
+                    {% csrf_token %}
+                    <button class="p-0 btn btn-link">Sign out</button>
+                </form>
+            </li>
+            <li>
+                <a href="{% url 'sevo_user:delete' request.user.id %}">Delete account</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}

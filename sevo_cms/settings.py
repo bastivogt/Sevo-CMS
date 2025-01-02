@@ -43,7 +43,8 @@ INSTALLED_APPS = [
 
     "sevo_auth",
     "sevo_sites",
-    "sevo_media"
+    "sevo_media",
+    "sevo_user"
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                "sevo_sites.context_processors.sites_context"
             ],
         },
     },
@@ -161,3 +164,9 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 #TINYMCE_JS_URL = os.path.join(STATIC_URL, "path/to/tiny_mce/tiny_mce.js")
+
+
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
