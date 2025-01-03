@@ -41,7 +41,7 @@ class IndexView(TemplateView):
 class SignUpView(FormView):
     template_name = "sevo_user/sign_up.html"
     form_class = SignUpForm
-    success_url = reverse_lazy("sevo_user:index")
+    success_url = reverse_lazy("sevo_user:sign_in")
 
 
 
@@ -54,11 +54,10 @@ class SignUpView(FormView):
         return context
 
     def form_valid(self, form):
-        if form.is_valid():
-            user = form.save(commit=False)
-            form.save()
-            login(request=self.request, user=user)
-            messages.add_message(self.request, messages.SUCCESS, _("You are signed up and logged in!"))
+        user = form.save(commit=False)
+        form.save()
+        # login(request=self.request, user=user)
+        messages.add_message(self.request, messages.SUCCESS, _("You are signed up and logged in!"))
         return super().form_valid(form)
     
 
