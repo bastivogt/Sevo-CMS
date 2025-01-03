@@ -1,17 +1,18 @@
 from django.urls import path, reverse_lazy
 from django.contrib.auth.views import LoginView, PasswordResetConfirmView, PasswordResetCompleteView
-from .views import SignInView, SignOutView, SignUpView, ChangePasswordView, ChangeUserData, DeleteUserView, ResetPasswordView, index
+from .views import IndexView, SignInView, SignOutView, SignUpView, ChangePasswordView, ChangeUserData, DeleteUserView, ResetPasswordView
 
 app_name = "sevo_user"
 urlpatterns = [
-    path("", index, name="index"),
-    #path("sign-up/", sign_up, name="sign_up"), 
+    #path("", index, name="index"),
+    path("", IndexView.as_view(), name="index"),
+
     path("sign-up/", SignUpView.as_view(), name="sign_up"),
-    #path("sign-in/", sign_in, name="sign_in"), 
+
     path("sign-in/", SignInView.as_view(), name="sign_in"), 
-    #path("sign-out/", sign_out, name="sign_out"),
+
     path("sign-out/", SignOutView.as_view(), name="sign_out"),
-    #path("password-change", change_password, name="password_change")
+
     path("password-change", ChangePasswordView.as_view(), name="password_change"), 
     path("userdata-change/<int:pk>", ChangeUserData.as_view(), name="update"),
     path("user-delete/<int:pk>", DeleteUserView.as_view(), name="delete"),

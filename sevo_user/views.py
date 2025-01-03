@@ -13,7 +13,7 @@ from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView,
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 
-from django.views.generic import UpdateView, DeleteView
+from django.views.generic import UpdateView, DeleteView, TemplateView
 
 from django.contrib.auth import get_user_model
 
@@ -25,10 +25,16 @@ from .forms import SignUpForm, SignInForm
 
 # Create your views here.
 
-def index(request):
-    return render(request, "sevo_user/index.html", {
-        "title": _("User index")
-    })
+
+class IndexView(TemplateView):
+    template_name = "sevo_user/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "title": "Sevo User index"
+        })
+        return context
 
 
 
