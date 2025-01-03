@@ -21,3 +21,5 @@ urlpatterns = [
     path('password-reset-complete/', PasswordResetCompleteView.as_view(template_name='sevo_user/password_reset_complete.html'), name='password_reset_complete'),
 
 ]
+
+# https://dev.to/earthcomfy/django-reset-password-3k0l
