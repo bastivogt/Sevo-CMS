@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Article, Site
+from .models import Article, Site, Subsite
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = [
@@ -17,6 +17,15 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 
+class SubsiteInline(admin.StackedInline):
+    model = Subsite
+    extra = 0
+    fk_name = "mastersite"
+
+    raw_id_fields = [
+        "subsite"
+    ]
+
 
 
 
@@ -26,15 +35,17 @@ class SiteAdmin(admin.ModelAdmin):
         "id",
         "get_image_tag",
         "title",
-        "article",
         "slug",
         "menu_type",
 
+
+        "is_home",
+        "get_sub_sites_str",
+        "available",
+        "published",
+        "order",
         "created",
         "updated",
-        "is_home",
-        "published",
-        "order"
     ]
 
     list_display_links = [
@@ -63,11 +74,13 @@ class SiteAdmin(admin.ModelAdmin):
         "url_path",
         "is_reverse",
         "is_home",
+        "available",
         "published"
     ]
 
     readonly_fields = [
-        "get_image_tag"
+        "get_image_tag", 
+        "get_sub_sites_str",
     ]
 
     raw_id_fields = [
@@ -86,6 +99,13 @@ class SiteAdmin(admin.ModelAdmin):
         "updated"
     ]
 
+    inlines = [
+        SubsiteInline
+    ]
+
+
+
 
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Site, SiteAdmin)
+admin.site.register(Subsite)
