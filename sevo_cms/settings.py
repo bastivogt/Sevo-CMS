@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     "sevo_auth",
     "sevo_sites",
+    "sevo_sites2",
     "sevo_media",
     "sevo_user"
 ]
