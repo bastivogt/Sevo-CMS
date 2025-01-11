@@ -41,6 +41,7 @@ class SiteAdmin(admin.ModelAdmin):
 
         "is_home",
         "get_sub_sites_str",
+        "get_master_sites_str",
         "available",
         "published",
         "order",
@@ -81,6 +82,7 @@ class SiteAdmin(admin.ModelAdmin):
     readonly_fields = [
         "get_image_tag", 
         "get_sub_sites_str",
+        "get_master_sites_str"
     ]
 
     raw_id_fields = [

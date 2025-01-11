@@ -17,6 +17,18 @@ class Article(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name=_("Created"))
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
 
+    @property
+    def rendered_content(self):
+        from django.template import Template, Context
+        #from django.template.loader import render_to_string
+        try:
+            tpl = Template("{% load sevo_tags %}" + self.content)
+            return tpl.render(Context({}))
+        except:
+            return self.content
+        
+    
+
     def __str__(self):
         return f"#{self.id} {self.title}"
 
@@ -61,6 +73,20 @@ class Site(models.Model):
     def get_sub_sites(self):
         return self.master_site.filter(mastersite=self)
     
+    # get_master_site_subsites
+    def get_master_sites(self):
+        if self.has_sub_sites():
+            return
+        else:
+            subsites_all = Subsite.objects.all()
+            subsites = subsites_all.filter(subsite=self)
+            return subsites
+        
+    def get_master_sites_ids(self):
+        subsites = self.get_master_sites()
+        mastersites_list = [item.mastersite.id for item in subsites]
+        return mastersites_list
+    
     @admin.display(description="Has Subsites")
     def has_sub_sites(self):
         if self.get_sub_sites().count() > 0:
@@ -81,6 +107,18 @@ class Site(models.Model):
             subsites_all = self.get_sub_sites()
             subsites_list = [f"#{item.subsite.id} {item.subsite.title}" for item in subsites_all]
             return ", ".join(subsites_list)
+        
+    @admin.display(description="Mastersites")
+    def get_master_sites_str(self):
+        if self.has_sub_sites():
+            return
+        else:
+            subsites_all = Subsite.objects.all()
+            #print(subsites_all)
+            subsites = subsites_all.filter(subsite=self)
+            mastersites_list = [f"#{item.mastersite.id} {item.mastersite.title}" for item in subsites]
+            print(mastersites_list)
+            return ", ".join(mastersites_list)
 
     
 
