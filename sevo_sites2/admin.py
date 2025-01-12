@@ -86,6 +86,7 @@ class Site2Admin(admin.ModelAdmin):
         "is_reverse",
         "is_home",
         "available",
+        "css_class",
         "published"
     ]
 

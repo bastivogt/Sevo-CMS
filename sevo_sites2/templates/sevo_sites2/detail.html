@@ -1,0 +1,27 @@
+{% extends "base_full_w.html" %}
+{% load sevo_tags %}
+
+
+{% block title %}
+    {{ site.title }}
+{% endblock %}
+
+
+{% block body_class %}{{ site.css_class }}{% endblock %}
+
+{% block header %}
+    {% if site.picture %}
+        <img class="object-fit-cover" src="{{ site.picture.get_image_url }}" width="100%" height="500" />
+    {% endif %}
+{% endblock %}
+
+
+
+{% block full_content %}
+ 
+    {% include "./partials/_content.html" %}
+
+    {% comment %} {{ content }} {% endcomment %}
+
+    
+{% endblock %}

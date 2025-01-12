@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +46,8 @@ INSTALLED_APPS = [
     "sevo_sites",
     "sevo_sites2",
     "sevo_media",
-    "sevo_user"
+    "sevo_user",
+    "sevo_templatetags"
 ]
 
 MIDDLEWARE = [

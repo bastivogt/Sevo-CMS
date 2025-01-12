@@ -1,0 +1,17 @@
+{% extends "base_blank.html" %}
+
+{% block body %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show m-0 rounded-0 message-alert" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    {% comment %} {% include 'partials/_navbar.html' %} {% endcomment %}
+    {% block header %}{% endblock %}
+
+    {% block full_content %}{% endblock %}
+
+
+    {% include 'partials/_footer.html' %}
+{% endblock %}

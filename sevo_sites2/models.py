@@ -38,13 +38,6 @@ class Article(models.Model):
 
 
 class Site2(models.Model):
-
-    # MENU_TYPES = {
-    #     "MAIN": "Main",
-    #     "META": "Meta",
-    #     "NONE": "None"
-    # }
-
     title = models.CharField(max_length=50, verbose_name=_("Title"), unique=True)
     slug = models.SlugField(max_length=100, unique=True, verbose_name=_("Slug"))
     #menu_type = models.CharField(max_length=10, choices=MENU_TYPES, default=MENU_TYPES["MAIN"], verbose_name=_("Menu Type"))
@@ -63,7 +56,7 @@ class Site2(models.Model):
     available = models.BooleanField(default=True)
 
 
-
+    css_class = models.CharField(max_length=500, blank=True, null=True, verbose_name=_("CSS Classes"))
 
     created = models.DateTimeField(auto_now_add=True, verbose_name=_("Created"))
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
@@ -80,6 +73,8 @@ class Site2(models.Model):
         return sa
         
 
+    def get_published_site_articles(self):
+        return self.get_site_articles(published=True)
     
     @admin.display(description="Has Subsites")
     def has_sub_sites(self):
@@ -128,8 +123,8 @@ class Site2(models.Model):
         super().save(*args, **kwargs)
     
     class Meta:
-        verbose_name = _("Site2")
-        verbose_name_plural = _("Sites2")
+        verbose_name = _("Site 2")
+        verbose_name_plural = _("Sites 2")
 
         ordering = [
             "order"
@@ -149,8 +144,8 @@ class Site2Article(models.Model):
         return f"#{self.article.id} {self.article.title}"
     
     class Meta:
-        verbose_name = _("Site2Article")
-        verbose_name_plural = _("Site2Articles")
+        verbose_name = _("Site 2 Article")
+        verbose_name_plural = _("Site 2 Articles")
     
 
 
@@ -206,8 +201,8 @@ class MenuSite2(models.Model):
 
     
     class Meta:
-        verbose_name = _("MenuSite2")
-        verbose_name_plural = _("MenuSites2")
+        verbose_name = _("Menu Site 2")
+        verbose_name_plural = _("Menu Sites 2")
 
 
 
