@@ -4,12 +4,17 @@ from django.contrib import admin
 from django.utils.translation import gettext as _
 from tinymce import models as tinymce_models
 
+
+
+
 from sevo_media.models import Picture
 
 class Article(models.Model):
     title = models.CharField(max_length=255, unique=True, verbose_name=_("Title"))
     description = models.TextField(max_length=255, verbose_name=_("Description"), blank=True)
     content = tinymce_models.HTMLField(verbose_name=_("Content"))
+
+
     css_id = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("CSS ID"))
     css_class = models.CharField(max_length=500, blank=True, null=True, verbose_name=_("CSS Classes"))
 

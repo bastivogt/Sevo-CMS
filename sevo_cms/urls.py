@@ -23,8 +23,8 @@ from sevo_sites2 import views as site2_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", site2_views.homepage, name="index"),
     path('tinymce/', include('tinymce.urls')),
+    path("", site2_views.homepage, name="index"),
     path("auth/", include("sevo_auth.urls")),
     path("user/", include("sevo_user.urls")),
     path("pages/", include("sevo_sites2.urls"))

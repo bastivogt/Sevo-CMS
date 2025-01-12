@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     "tinymce",
 
+
     "sevo_auth",
     "sevo_sites",
     "sevo_sites2",
@@ -173,3 +174,6 @@ if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+
