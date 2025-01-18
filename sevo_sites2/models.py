@@ -174,6 +174,9 @@ class Menu(models.Model):
             return ms.filter(published=True)
         return ms
     
+    def get_published_menu_sites(self):
+        return self.get_menu_sites(published=True)
+    
     @admin.display(description="Sites")
     def get_sites_str(self):
         pass
@@ -203,6 +206,11 @@ class MenuSite2(models.Model):
     
     def get_subsites(self):
         return self.subsites2.all()
+    
+    def get_published_subsites(self):
+        ss = self.get_subsites().filter(published=True)
+        return ss
+
 
     
     class Meta:
