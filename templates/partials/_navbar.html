@@ -21,3 +21,25 @@
       </div>
     </div>
   </nav>
+
+
+
+  <h3>Primary</h3>
+<ul>
+    {% for item in menu_primary.get_published_menu_sites %}
+        <li class="nav-item">
+            
+            <a class="nav-link {% is_active_site path=request.path site=item.site2 %}" href="{% url 'sevo_sites2:detail' item.site2.slug %}">{{ item.site2.title }}</a>
+            {% if item.has_subsites %}
+                <ul>
+                    {% for subsite in item.get_published_subsites %}
+                    <li>
+                        <a href="{% url 'sevo_sites2:detail' subsite.slug %}">{{ subsite.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+
+    {% endfor %}
+</ul>
