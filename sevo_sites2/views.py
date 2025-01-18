@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 
 from .models import Site2
@@ -19,6 +19,8 @@ def homepage(request):
 
 def detail(request, slug):
     site = get_object_or_404(Site2, slug=slug)
+    if site == Site2.get_home_page():
+        return redirect("index")
     print("path: ", request.path)
     return render(request, "sevo_sites2/detail.html", {
         "site": site,

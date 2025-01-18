@@ -118,10 +118,24 @@ class MenuSite2Inline(admin.StackedInline):
     model = MenuSite2
     extra = 0
 
+    fields = [
+        "menu",
+        "site2",
+        "subsites2",
+        "get_subsites_str",
+        "order",
+        "published"
+    ]
+
     raw_id_fields = [
         "site2",
         "subsites2"
     ]
+
+    readonly_fields = [
+        "get_subsites_str"
+    ]
+
 
 
 

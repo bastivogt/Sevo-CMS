@@ -128,8 +128,8 @@ class Site2(models.Model):
         super().save(*args, **kwargs)
     
     class Meta:
-        verbose_name = _("Site 2")
-        verbose_name_plural = _("Sites 2")
+        verbose_name = _("Site2")
+        verbose_name_plural = _("Sites2")
 
         ordering = [
             "order"
@@ -149,8 +149,8 @@ class Site2Article(models.Model):
         return f"#{self.article.id} {self.article.title}"
     
     class Meta:
-        verbose_name = _("Site 2 Article")
-        verbose_name_plural = _("Site 2 Articles")
+        verbose_name = _("Site2 Article")
+        verbose_name_plural = _("Site2 Articles")
     
 
 
@@ -211,11 +211,18 @@ class MenuSite2(models.Model):
         ss = self.get_subsites().filter(published=True)
         return ss
 
+    @admin.display(description="Subsites2 String")
+    def get_subsites_str(self):
+        ss = self.get_subsites()
+        if ss.count() == 0:
+            return "-"
+        ss_list = [str(item) for item in ss]
+        return ", ".join(ss_list)
 
     
     class Meta:
-        verbose_name = _("Menu Site 2")
-        verbose_name_plural = _("Menu Sites 2")
+        verbose_name = _("Menu Site2")
+        verbose_name_plural = _("Menu Sites2")
 
 
 
