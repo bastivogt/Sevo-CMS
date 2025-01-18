@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 
 
     "sevo_auth",
-    "sevo_sites",
+    #"sevo_sites",
     "sevo_sites2",
     "sevo_media",
     "sevo_user",
@@ -77,7 +77,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                "sevo_sites.context_processors.sites_context"
+                "sevo_sites2.context_processors.menu_context"
             ],
         },
     },

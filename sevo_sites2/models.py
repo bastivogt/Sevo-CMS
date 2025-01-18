@@ -105,8 +105,8 @@ class Site2(models.Model):
 
             return path
         if self.is_home:
-            return reverse("homepage")
-        return reverse("sevo-pages-detail", kwargs={"slug": self.slug})
+            return reverse("index")
+        return reverse("sevo_sites2:detail", kwargs={"slug": self.slug})
     
 
     @classmethod
@@ -157,7 +157,7 @@ class Site2Article(models.Model):
 class Menu(models.Model):
     MENU_TYPES = {
         "PRIMARY": "Primary",
-        "SECOMDARY": "Secondary",
+        "SECONDARY": "Secondary",
         "META": "Meta",
         "OTHER": "Other"
     }

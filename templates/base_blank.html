@@ -14,6 +14,7 @@
     <title>SEVO CMS - {% block title %}{% endblock %}</title>
 </head>
 <body class="{% block body_class %}{% endblock %}">
+    {% include "partials/_nav.html" %}
     {% block body %}{% endblock %}
 
     <script src="{% static 'vendor/npm/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

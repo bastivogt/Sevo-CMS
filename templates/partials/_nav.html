@@ -1,0 +1,58 @@
+{% load sevo_tags %}
+<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'index' %}">SEVO CMS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% for item in menu_primary.get_published_menu_sites %}
+                {% if not item.has_subsites %}
+                    <li class="nav-item"> 
+                        <a class="nav-link {% is_active_site path=request.path site=item.site2 %}" href="{% if item.site2.available %}{% url 'sevo_sites2:detail' item.site2.slug %}{% endif %}">{{ item.site2.title }}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item dropdown"> 
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ item.site2.title }}</a>
+                        <ul class="dropdown-menu">
+                            {% for subsite in item.get_published_subsites %}
+                            <li>
+                                <a class="dropdown-item {% is_active_site path=request.path site=subsite %}" href="{% url 'sevo_sites2:detail' subsite.slug %}">{{ subsite.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endfor %}
+          {% comment %} <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li> {% endcomment %}
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<h1>_nav.html</h1>
+
+
+<h3>Primary</h3>
+<ul>
+    {% for item in menu_primary.get_published_menu_sites %}
+        <li class="nav-item">
+            
+            <a class="nav-link {% is_active_site path=request.path site=item.site2 %}" href="{% url 'sevo_sites2:detail' item.site2.slug %}">{{ item.site2.title }}</a>
+            {% if item.has_subsites %}
+                <ul>
+                    {% for subsite in item.get_published_subsites %}
+                    <li>
+                        <a href="{% url 'sevo_sites2:detail' subsite.slug %}">{{ subsite.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+
+    {% endfor %}
+</ul>
