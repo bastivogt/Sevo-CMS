@@ -44,7 +44,6 @@ INSTALLED_APPS = [
 
 
     "sevo_auth",
-    #"sevo_sites",
     "sevo_sites2",
     "sevo_media",
     "sevo_user",
@@ -177,3 +176,7 @@ else:
 
 
 
+# sevo_account / auth
+
+LOGIN_REDIRECT_URL = "sevo_account:index"
+LOGOUT_REDIRECT_URL = "sevo_account:index"
