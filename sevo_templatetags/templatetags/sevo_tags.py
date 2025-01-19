@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 #from sevo_sites.models import Site, Article
 
 from sevo_media.models import Picture, File
+from sevo_sites2.models import Article
 
 
 
@@ -25,6 +26,20 @@ def is_active_site(path, site):
 @register.simple_tag
 def greeting(name="John"):
     return f"Hello, {name}!"
+
+
+@register.simple_tag
+def get_article(id):
+    try:
+        article = Article.objects.get(id=id)
+        return render_to_string("sevo_sites2/partials/_article.html", {
+            "article": article
+        })
+    except:
+        return render_to_string("sevo_templatetags/partials/_error.html", {
+            "message": "<Article not found>"
+        })
+
 
 
 # @register.simple_tag

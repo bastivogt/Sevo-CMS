@@ -3,16 +3,7 @@
 
 <section class="py-5 {{ site_article.css_class }}">
     <div class="container">
-        <article {% if site_article.article.css_class %}class="{{ site_article.article.css_class }}"{% endif %}>
-            <h2>{{ site_article.article.title }}</h2>
-            <p>
-                
-    
-                {{ site_article.article.rendered_content }}
-                
-                
-            </p>
-        </article>
+        {% include "./_article.html" with article=site_article.article %}
     </div>
 
 </section>
