@@ -81,6 +81,15 @@ class Site2(models.Model):
     def get_published_site_articles(self):
         return self.get_site_articles(published=True)
     
+
+    def get_slug(self):
+        if self.url_path:
+            if self.is_reverse:
+                return reverse(self.url_path)
+            return self.url_path
+        return self.slug
+    
+    
     @admin.display(description="Has Subsites")
     def has_sub_sites(self):
         if self.get_sub_sites().count() > 0:
@@ -94,6 +103,9 @@ class Site2(models.Model):
         return None
     
 
+    
+    
+
 
     
     def get_absolute_url(self):
@@ -102,7 +114,6 @@ class Site2(models.Model):
                 path = reverse(self.url_path)
             else:
                 path = self.url_path
-
             return path
         if self.is_home:
             return reverse("index")

@@ -10,7 +10,7 @@
             {% for item in menu_primary.get_published_menu_sites %}
                 {% if not item.has_subsites %}
                     <li class="nav-item"> 
-                        <a class="nav-link {% is_active_site path=request.path site=item.site2 %}" href="{% if item.site2.available %}{% url 'sevo_sites2:detail' item.site2.slug %}{% endif %}">{{ item.site2.title }}</a>
+                        <a class="nav-link {% is_active_site path=request.path site=item.site2 %}" href="{% if item.site2.available %}{{ item.site2.get_absolute_url }}{% endif %}">{{ item.site2.title }}</a>
                     </li>
                 {% else %}
                     <li class="nav-item dropdown"> 
@@ -18,7 +18,7 @@
                         <ul class="dropdown-menu">
                             {% for subsite in item.get_published_subsites %}
                             <li>
-                                <a class="dropdown-item {% is_active_site path=request.path site=subsite %}" href="{% url 'sevo_sites2:detail' subsite.slug %}">{{ subsite.title }}</a>
+                                <a class="dropdown-item {% is_active_site path=request.path site=subsite %}" href="{% if subsite.available %}{{ subsite.get_absolute_url }}{% endif %}">{{ subsite.title }}</a>
                             </li>
                             {% endfor %}
                         </ul>
