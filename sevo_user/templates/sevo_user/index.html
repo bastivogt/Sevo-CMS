@@ -7,6 +7,11 @@
 
 {% block content %}
     <h1>{{ title }}</h1>
+    {% if request.user.is_authenticated %}
+        <p>
+            Hello, {{ request.user.username }}!
+        </p>
+    {% endif %}
     <ul>
         {% if user.is_authenticated == False %}
             <li>

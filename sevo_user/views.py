@@ -17,6 +17,8 @@ from django.views.generic import UpdateView, DeleteView, TemplateView
 
 from django.contrib.auth import get_user_model
 
+from . import settings
+
 User = get_user_model()
 
 
@@ -41,7 +43,7 @@ class IndexView(TemplateView):
 class SignUpView(FormView):
     template_name = "sevo_user/sign_up.html"
     form_class = SignUpForm
-    success_url = reverse_lazy("sevo_user:sign_in")
+    success_url = reverse_lazy(settings.SEVO_USER_SIGN_UP_REDIRECT_URL)
 
 
 
@@ -49,7 +51,7 @@ class SignUpView(FormView):
         context = super().get_context_data(**kwargs)
         context.update({
             "title": _("Sign up"),
-            "submit_label": _("Submit")
+            "submit": _("Submit")
         })
         return context
 
@@ -64,14 +66,14 @@ class SignUpView(FormView):
 
 class SignInView(SuccessMessageMixin, LoginView):
     template_name = "sevo_user/sign_in.html"
-    next_page = reverse_lazy("sevo_user:index")
+    next_page = reverse_lazy(settings.SEVO_USER_SIGN_IN_REDIRECT_URL)
     success_message = _("You are signed in!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
             "title": _("Sign in"),
-            "submit_label": _("Submit")
+            "submit": _("Submit")
         })
         return context
 
@@ -87,7 +89,7 @@ class SignInView(SuccessMessageMixin, LoginView):
 
 
 class SignOutView(LoginRequiredMixin, SuccessMessageMixin, LogoutView):
-    next_page = reverse_lazy("sevo_user:index")
+    next_page = reverse_lazy(settings.SEVO_USER_SIGN_OUT_REDIRECT_URL)
     success_message = _("You are signed out!")
 
 
@@ -95,7 +97,7 @@ class SignOutView(LoginRequiredMixin, SuccessMessageMixin, LogoutView):
 
 class ChangePasswordView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
     form_class = PasswordChangeForm
-    success_url = reverse_lazy("sevo_user:index")
+    success_url = reverse_lazy(settings.SEVO_USER_PASSWORD_CHANGE_REDIRECT_URL)
     template_name = "sevo_user/password_change.html"
     title = _("Password change")
     success_message = _("Password changed")
@@ -104,7 +106,8 @@ class ChangePasswordView(SuccessMessageMixin, LoginRequiredMixin, PasswordChange
         context =  super().get_context_data(**kwargs)
         #context["submit_label"] = _("Submit")
         context.update({
-            "submit_label": _("Submit")
+            "title": "Password change",
+            "submit": _("Submit")
         })
         return context
 
@@ -118,13 +121,13 @@ class ChangeUserData(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     ]
     template_name = "sevo_user/update.html"
     success_message = _("Userdata changed!")
-    success_url = reverse_lazy("sevo_user:index")
+    success_url = reverse_lazy(settings.SEVO_USER_UPDATE_REDIRECT_URL)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
             "title": "Userdata change",
-            "submit_label": _("Submit")
+            "submit": _("Submit")
         })
         return context
     
@@ -133,13 +136,13 @@ class DeleteUserView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = User
     template_name = "sevo_user/delete.html"
     success_message = _("User deleted!")
-    success_url = reverse_lazy("sevo_user:index")
+    success_url = reverse_lazy(settings.SEVO_USER_DELETE_REDIRECT_URL)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
             "title": "Delete account",
-            "submit_label": _("Delete")
+            "submit": _("Delete")
         })
         return context
     
@@ -154,5 +157,6 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
                       "if an account exists with the email you entered. You should receive them shortly." \
                       " If you don't receive an email, " \
                       "please make sure you've entered the address you registered with, and check your spam folder."
-    success_url = reverse_lazy('sevo_user:index')
+    success_url = reverse_lazy(settings.SEVO_USER_RESET_PASSWORD_REDIRECT_URL)
+
     

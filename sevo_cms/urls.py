@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path("", site2_views.homepage, name="index"),
-    path("auth/", include("sevo_auth.urls")),
+    #path("auth/", include("sevo_auth.urls")),
     path("user/", include("sevo_user.urls")),
     path("pages/", include("sevo_sites2.urls"))
 ]

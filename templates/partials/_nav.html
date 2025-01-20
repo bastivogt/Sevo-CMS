@@ -1,5 +1,5 @@
-{% load sevo_tags %}
-<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+{% load sevo_tags static %}
+<nav class="navbar bg-primary navbar-expand-lg" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'index' %}">SEVO CMS</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +15,7 @@
                 {% else %}
                     <li class="nav-item dropdown"> 
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ item.site2.title }}</a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" data-bs-theme="light">
                             {% for subsite in item.get_published_subsites %}
                             <li>
                                 <a class="dropdown-item {% is_active_site path=request.path site=subsite %}" href="{% if subsite.available %}{{ subsite.get_absolute_url }}{% endif %}">{{ subsite.title }}</a>
@@ -29,6 +29,39 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li> {% endcomment %}
 
+        </ul>
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="opacity-75" src="{% static 'images/icons/user.svg' %}" alt="User">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" data-bs-theme="light">
+                {% if request.user.is_authenticated %}
+                  <li>
+                    <a class="dropdown-item" href="{% url 'sevo_user:update' pk=request.user.id %}">Change userdata</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'sevo_user:password_change' %}">Change password</a>
+                  </li>
+                  <li>
+                    <form method="post" action="{% url 'sevo_user:sign_out' %}">
+                      {% csrf_token %}
+                      <button class="btn btn-link dropdown-item">Sign out</button>
+                  </form>
+                  </li>
+                {% else %}
+                  <li>
+                    <a class="dropdown-item" href="{% url 'sevo_user:sign_in' %}">Sign in</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'sevo_user:sign_up' %}">Sign up</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'sevo_user:password_reset' %}">Forgot password</a>
+                  </li>
+                {% endif %}
+              </ul>
+          </li>
         </ul>
       </div>
     </div>

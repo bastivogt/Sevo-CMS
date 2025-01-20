@@ -10,7 +10,7 @@
     <h1 class="mb-3">{% trans "Hello" %}, <strong>{{ object.username|upper }}</strong>!</h1>
     <form method="POST">
         {% csrf_token %}
-        {% include "./partials/_fields.html" with title="Change userdata" submit="Submit" %}
+        {% include "./partials/_fields.html" %}
     </form>
     <div class="mt-3 d-flex gap-0 flex-column">
         <a class="back-link" href="#">{% trans "Back" %}</a>

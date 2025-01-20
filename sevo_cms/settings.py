@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "tinymce",
 
 
-    "sevo_auth",
+    #"sevo_auth",
     "sevo_sites2",
     "sevo_media",
     "sevo_user",
