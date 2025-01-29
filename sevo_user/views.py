@@ -13,7 +13,7 @@ from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView,
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 
-from django.views.generic import UpdateView, DeleteView, TemplateView
+from django.views.generic import UpdateView, DeleteView, TemplateView, View
 
 from django.contrib.auth import get_user_model
 
@@ -28,13 +28,18 @@ from .forms import SignUpForm, SignInForm
 # Create your views here.
 
 
-class IndexView(TemplateView):
-    template_name = "sevo_user/index.html"
+
+
+
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = "sevo_user/dashboard.html"
+    login_url = reverse_lazy("sevo_user:sign_in")
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            "title": "Sevo User index"
+            "title": _("User dashboard")
         })
         return context
 
@@ -49,6 +54,7 @@ class SignUpView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context.update({
             "title": _("Sign up"),
             "submit": _("Submit")
@@ -58,7 +64,7 @@ class SignUpView(FormView):
     def form_valid(self, form):
         user = form.save(commit=False)
         form.save()
-        # login(request=self.request, user=user)
+        #login(request=self.request, user=user)
         messages.add_message(self.request, messages.SUCCESS, _("You are signed up and logged in!"))
         return super().form_valid(form)
     
@@ -92,6 +98,8 @@ class SignOutView(LoginRequiredMixin, SuccessMessageMixin, LogoutView):
     next_page = reverse_lazy(settings.SEVO_USER_SIGN_OUT_REDIRECT_URL)
     success_message = _("You are signed out!")
 
+    login_url = reverse_lazy("sevo_user:sign_in")
+
 
 
 
@@ -101,6 +109,10 @@ class ChangePasswordView(SuccessMessageMixin, LoginRequiredMixin, PasswordChange
     template_name = "sevo_user/password_change.html"
     title = _("Password change")
     success_message = _("Password changed")
+
+    login_url = reverse_lazy("sevo_user:sign_in")
+
+
 
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
@@ -123,6 +135,8 @@ class ChangeUserData(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     success_message = _("Userdata changed!")
     success_url = reverse_lazy(settings.SEVO_USER_UPDATE_REDIRECT_URL)
 
+    login_url = reverse_lazy("sevo_user:sign_in")
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
@@ -137,6 +151,8 @@ class DeleteUserView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     template_name = "sevo_user/delete.html"
     success_message = _("User deleted!")
     success_url = reverse_lazy(settings.SEVO_USER_DELETE_REDIRECT_URL)
+
+    login_url = reverse_lazy("sevo_user:sign_in")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
